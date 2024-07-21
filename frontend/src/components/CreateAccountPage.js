@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import CustomAppBar from './CustomAppBar';
 import { useNavigate } from 'react-router-dom';
+import { margin } from '@mui/system';
+import { alignProperty } from '@mui/material/styles/cssUtils';
+import { CenterFocusStrong } from '@mui/icons-material';
 
 export default function CreateAccountPage() {
 
@@ -67,16 +70,73 @@ export default function CreateAccountPage() {
         }
     };
 
+    const styles = {
+        form: {
+            maxWidth: '500px',
+            margin: '0 auto',
+            padding: '20px',
+            border: '1px solid #ddd',
+            borderRadius: '8px',
+            backgroundColor: '#f9f9f9',
+            marginTop: '25px',
+        },
+        div: {
+            marginBottom: '15px',
+        },
+        label: {
+            display: 'block',
+            fontWeight: 'bold',
+        },
+        input: {
+            width: '100%',
+            padding: '8px',
+            boxSizing: 'border-box',
+        },
+        button: {
+            padding: '10px 20px',
+            backgroundColor: '#007BFF',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            margin: '0 auto',
+        },
+        buttonHover: {
+            backgroundColor: '#0056b3',
+        },
+        error: {
+            color: 'red',
+        },
+        success: {
+            color: 'green',
+        },
+    };
+
     return (
         <div>
             <CustomAppBar/>
-            <form>
-                <label>Enter your First Name: <input onChange ={changeFirstName} type='text'/></label><br/>
-                <label>Enter your Last Name: <input onChange ={changeLastName} type='text'/></label><br/>
-                <label>Enter your Major: <input onChange ={changeMajor} type='text'/></label><br/>
-                <label>Enter your GPA: <input onChange ={changeGpa} type='number'/></label><br/>
-                <label>Enter your Age: <input onChange ={changeAge} type='number'/></label><br/>
-                <button onClick={createAccount}>Create Account</button>
+            <form style={styles.form}>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="firstName">First Name:</label>
+                    <input style={styles.input} id="firstName" value={firstName} onChange={changeFirstName} type="text" />
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="lastName">Last Name:</label>
+                    <input style={styles.input} id="lastName" value={lastName} onChange={changeLastName} type="text" />
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="major">Major:</label>
+                    <input style={styles.input} id="major" value={major} onChange={changeMajor} type="text" />
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="gpa">GPA:</label>
+                    <input style={styles.input} id="gpa" value={gpa} onChange={changeGpa} type="number" />
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="age">Age:</label>
+                    <input style={styles.input} id="age" value={age} onChange={changeAge} type="number" />
+                </div>
+                <button style={styles.button} type="submit" onClick={createAccount}>Create Account</button>
             </form>
         </div>
     );
