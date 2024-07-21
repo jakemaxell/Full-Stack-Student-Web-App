@@ -1,9 +1,5 @@
 package com.jakemaxell.Simple.Full.Stack.Application.models;
 
-import jakarta.annotation.Generated;
-import jakarta.annotation.PostConstruct;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
