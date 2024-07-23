@@ -3,6 +3,9 @@ package com.jakemaxell.Simple.Full.Stack.Application.controllers;
 import com.jakemaxell.Simple.Full.Stack.Application.models.Student;
 import com.jakemaxell.Simple.Full.Stack.Application.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -27,8 +30,9 @@ public class StudentController {
 
     // GET
     @GetMapping("/getStudentById/{id}")
-    private Optional<Student> getStudentById(@PathVariable("id") String studentId){
-        return studentService.getStudentById(studentId);
+    private ResponseEntity<Student> getStudentById(@PathVariable("id") String studentId){
+        Optional<Student> student = studentService.getStudentById(studentId);
+        return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
 }

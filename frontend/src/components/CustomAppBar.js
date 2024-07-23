@@ -91,10 +91,15 @@ export default function SearchAppBar() {
         const data = text ? JSON.parse(text) : {};
 
         if(response.ok){
-            navigate('/search-student', {state: {data}});
-        } else {
-            throw new Error(data.message || 'An error occurred');
+          navigate('/search-student', {state: {data}});
+        } 
+
+        if(response.status == 404){
+          alert("Invalid search value. . .");
+          setSearchQuery("");
+          return;
         }
+
     } catch (error) {
         setError(error.message);
         console.error("Error: ", error);
