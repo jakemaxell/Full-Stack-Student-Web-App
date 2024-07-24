@@ -35,4 +35,10 @@ public class StudentController {
         return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping("/getStudentByEmail/{email}")
+    private ResponseEntity<Student> getStudentByEmail(@PathVariable("email") String email){
+        Optional<Student> student = studentService.getStudentByEmail(email);
+        return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
 }

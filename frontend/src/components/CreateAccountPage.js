@@ -16,6 +16,8 @@ export default function CreateAccountPage() {
     const [age, setAge] = useState('');
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const changeFirstName = (event) => {
         setFirstName(event.target.value);
@@ -37,6 +39,14 @@ export default function CreateAccountPage() {
         setAge(event.target.value);
     };
 
+    const changeEmail = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const changePassword = (event) => {
+        setPassword(event.target.value);
+    };
+
     const createAccount = async (event) => {
         event.preventDefault();
 
@@ -51,7 +61,9 @@ export default function CreateAccountPage() {
                     "lastName": lastName,
                     "major": major,
                     "gpa": gpa,
-                    "age": age
+                    "age": age,
+                    "email": email.toLowerCase(),
+                    "password": password
                 })
             });
     
@@ -135,6 +147,14 @@ export default function CreateAccountPage() {
                 <div style={styles.div}>
                     <label style={styles.label} htmlFor="age">Age:</label>
                     <input style={styles.input} id="age" value={age} onChange={changeAge} type="number" />
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="email">Email:</label>
+                    <input style={styles.input} id="email" value={email} onChange={changeEmail} type="text" />
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label} htmlFor="password">Password:</label>
+                    <input style={styles.input} id="password" value={password} onChange={changePassword} type="text" />
                 </div>
                 <button style={styles.button} type="submit" onClick={createAccount}>Create Account</button>
             </form>

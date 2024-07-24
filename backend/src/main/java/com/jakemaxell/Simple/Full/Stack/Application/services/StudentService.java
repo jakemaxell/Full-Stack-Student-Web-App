@@ -5,6 +5,7 @@ import com.jakemaxell.Simple.Full.Stack.Application.repositories.StudentReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,10 @@ public class StudentService {
 
     public Optional<Student> getStudentById(String studentId){
         return studentRepository.findById(studentId);
+    }
+
+    public Optional<Student> getStudentByEmail(String email) {
+        return Optional.ofNullable(studentRepository.findByEmail(email.toLowerCase(Locale.ROOT)));
     }
 
 }

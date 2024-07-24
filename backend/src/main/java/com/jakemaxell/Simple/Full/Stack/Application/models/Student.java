@@ -14,6 +14,8 @@ public class Student {
     private String firstName;
     private String lastName;
     private String major;
+    private String email;
+    private String password;
     private double gpa;
     private int age;
 
@@ -71,6 +73,22 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

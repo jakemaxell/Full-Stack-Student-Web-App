@@ -7,10 +7,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import { useNavigate, useLocation } from 'react-router-dom';
-import SearchStudentPage from './SearchStudentPage';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -55,9 +56,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate(); 
   const location = useLocation();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [anchorElement, setAnchorElement] = useState(null);
   const [error, setError] = useState(null);
 
   const hiddenPaths = ["/create-student"];
@@ -71,8 +74,16 @@ export default function SearchAppBar() {
     navigate("/create-student");
   };
 
+  const handleMenuClick = (event) => {
+     setAnchorElement(event.currentTarget);
+  };
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorElement(null);
   };
 
   const handleSearchSubmit = async (event) => {
@@ -80,7 +91,7 @@ export default function SearchAppBar() {
       event.preventDefault();
       
       try {
-        const response =  await fetch("http://localhost:8080/api/getStudentById/" + searchQuery, {
+        const response =  await fetch("http://localhost:8080/api/getStudentByEmail/" + searchQuery, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -118,9 +129,18 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={handleMenuClick}
           >
             <MenuIcon />
           </IconButton>
+          <Menu
+            anchorEl={anchorElement}
+            open={Boolean(anchorElement)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={() => { handleMenuClose(); navigate('/'); }}>Home</MenuItem>
+            <MenuItem onClick={() => { handleMenuClose(); navigate('/create-student'); }}>Add Student</MenuItem>
+          </Menu>
           <Typography
             variant="h6"
             noWrap
@@ -140,23 +160,7 @@ export default function SearchAppBar() {
               onChange={handleSearchChange}
               onKeyDown={handleSearchSubmit}
             />
-          </Search>
-
-          {location.pathname !== '/' && (
-            <>
-              <Button color='inherit' onClick={goHome}>
-                Home
-              </Button>
-            </>
-          )}
-
-          {!shouldHideButtons && (
-            <>
-              <Button color="inherit" onClick={createStudent}>
-                Add Student
-              </Button>
-            </>
-          )}
+          </Search> 
 
         </Toolbar>
       </AppBar>
